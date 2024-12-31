@@ -37,7 +37,7 @@ public class HomeActivity extends AppCompatActivity {
     private String userID;
     private String token;
     private String username;
-
+    private String userEmail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +51,7 @@ public class HomeActivity extends AppCompatActivity {
         String username = getIntent().getStringExtra("username");
         userID = getIntent().getStringExtra("userID");
         String token = getIntent().getStringExtra("token");
+        userEmail = getIntent().getStringExtra("userEmail");
         tvUsername.setText(username);
 
         // 验证 token
@@ -63,6 +64,16 @@ public class HomeActivity extends AppCompatActivity {
 
         Log.d("HomeActivity", "Token received: " + token);
         Log.d("HomeActivity", "UserID received: " + userID);
+
+        // 点击用户名，跳转到 UserProfileActivity 并传递用户信息
+        tvUsername.setOnClickListener(v -> {
+            Intent intent = new Intent(this, UserProfileActivity.class);
+            intent.putExtra("username", username);
+            intent.putExtra("userID", userID);
+            intent.putExtra("token", token);
+            intent.putExtra("userEmail", userEmail); // 传递用户邮箱
+            startActivity(intent);
+        });
 
         // 设置按钮点击事件，传递所有必要的数据
         btnStore.setOnClickListener(v -> {

@@ -35,6 +35,10 @@
         <activity
             android:name=".activity.AuthActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".activity.UserProfileActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
