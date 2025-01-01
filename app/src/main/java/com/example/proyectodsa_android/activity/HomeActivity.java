@@ -22,6 +22,7 @@ import com.example.proyectodsa_android.R;
 import com.example.proyectodsa_android.RetrofitClient;
 import com.example.proyectodsa_android.StoreAdapter;
 import com.example.proyectodsa_android.models.StoreObject;
+import com.unity3d.player.UnityPlayerGameActivity;
 
 import java.util.List;
 
@@ -32,6 +33,7 @@ import retrofit2.Response;
 public class HomeActivity extends AppCompatActivity {
     private ImageButton btnUserStuff;
     private ImageButton btnStore;
+    private ImageButton btnPlay;
     private Button btnLogout;
     private TextView tvUsername;
     private String userID;
@@ -47,6 +49,7 @@ public class HomeActivity extends AppCompatActivity {
         btnUserStuff = findViewById(R.id.btnUserStuff);
         btnStore = findViewById(R.id.btnstore);
         btnLogout = findViewById(R.id.btnLogout);
+        btnPlay = findViewById(R.id.btnPlay);
 
         String username = getIntent().getStringExtra("username");
         userID = getIntent().getStringExtra("userID");
@@ -96,6 +99,17 @@ public class HomeActivity extends AppCompatActivity {
             SharedPreferences prefs = getSharedPreferences("auth", MODE_PRIVATE);
             prefs.edit().clear().apply();
             redirectToLogin();
+        });
+
+        btnPlay.setOnClickListener(v -> {
+            SharedPreferences prefs = getSharedPreferences("com.example.proyectodsa_android.v2.playerprefs", MODE_PRIVATE);
+            prefs.edit().putString("sceneToLoad", "LevelEditorScene").apply();
+            prefs.edit().putString("userId", userID).apply();
+            prefs.edit().putString("playerName", username).apply();
+            prefs.edit().putString("cookie", token).apply();
+
+           Intent intent = new Intent(this, UnityPlayerGameActivity.class);
+           startActivity(intent);
         });
 
     }

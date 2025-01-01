@@ -41,6 +41,13 @@ dependencies {
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
 
+    implementation project(':unityApp')
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.core:core:1.9.0'
+    implementation 'androidx.games:games-activity:3.0.5'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.games:games-frame-pacing:1.10.0'
+
     implementation libs.glide
     annotationProcessor libs.compiler
 
