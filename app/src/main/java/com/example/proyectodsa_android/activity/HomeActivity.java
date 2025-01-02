@@ -31,9 +31,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity {
-    private ImageButton btnUserStuff;
-    private ImageButton btnStore;
-    private ImageButton btnPlay;
+    private ApiService apiService;
+    private ImageButton btnUserStuff, btnStore,btnPlay;
+    private TextView tvPuntos;
     private Button btnLogout;
     private TextView tvUsername;
     private String userID;
@@ -46,6 +46,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         tvUsername = findViewById(R.id.tvUsername);
+        tvPuntos = findViewById(R.id.tvPuntos);
         btnUserStuff = findViewById(R.id.btnUserStuff);
         btnStore = findViewById(R.id.btnstore);
         btnLogout = findViewById(R.id.btnLogout);
@@ -100,6 +101,7 @@ public class HomeActivity extends AppCompatActivity {
             prefs.edit().clear().apply();
             redirectToLogin();
         });
+        apiService = RetrofitClient.getInstance().getApi();
 
         btnPlay.setOnClickListener(v -> {
             SharedPreferences prefs = getSharedPreferences("com.example.proyectodsa_android.v2.playerprefs", MODE_PRIVATE);
@@ -112,6 +114,7 @@ public class HomeActivity extends AppCompatActivity {
            startActivity(intent);
         });
 
+        loadUserPuntos();
     }
 
     private void redirectToLogin() {
@@ -119,4 +122,26 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    private void loadUserPuntos() {
+        Call<Integer> call = apiService.getPuntos(userID, "token=" + token);
+        call.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    int puntos = response.body();
+                    tvPuntos.setText("Points: " + puntos);
+                } else {
+                    Toast.makeText(HomeActivity.this, "Failed to load points", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+                Toast.makeText(HomeActivity.this, "Error loading points", Toast.LENGTH_SHORT).show();
+                Log.e("HomeActivity", "Error loading points", t);
+            }
+        });
+    }
+
 }

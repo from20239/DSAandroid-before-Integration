@@ -47,4 +47,9 @@ public interface ApiService {
             @Path("quantity") int quantity,
             @Header("Cookie") String token
     );
+    @GET("users/puntos/{userID}")
+    Call<Integer> getPuntos(
+            @Path("userID") String userID,
+            @Header("Cookie") String token
+    );
 }
