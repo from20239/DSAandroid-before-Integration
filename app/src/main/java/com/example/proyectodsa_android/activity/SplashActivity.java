@@ -8,11 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.proyectodsa_android.ApiService;
 import com.example.proyectodsa_android.R;
@@ -51,6 +47,9 @@ public class SplashActivity extends AppCompatActivity {
     private void validateToken() {
         String username = prefs.getString("username", null);
         String token = prefs.getString("token", null);
+        String userEmail = prefs.getString("userEmail", null); // 获取存储的邮箱
+        String userPassword = prefs.getString("userPassword", null); // 获取存储的密码
+
 
         if (username == null || token == null) {
             navigateToAuth();
@@ -62,7 +61,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<InventoryObject>> call, Response<List<InventoryObject>> response) {
                 if (response.isSuccessful()) {
-                    navigateToHome(username, token);
+                    navigateToHome(username, token, userEmail,userPassword);
                 } else {
                     Log.d("SplashActivity", "Token validation failed with code: " + response.code());
                     prefs.edit().clear().apply();
@@ -84,10 +83,12 @@ public class SplashActivity extends AppCompatActivity {
         finish();
     }
 
-    private void navigateToHome(String username, String token) {
+    private void navigateToHome(String username, String token, String userEmail, String userPassword) {
         Intent intent = new Intent(this, HomeActivity.class);
         intent.putExtra("username", username);
         intent.putExtra("token", token);
+        intent.putExtra("userEmail", userEmail);
+        intent.putExtra("userPassword", userPassword);
         startActivity(intent);
         finish();
     }

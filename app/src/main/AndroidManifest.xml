@@ -39,6 +39,10 @@
         <activity
             android:name=".activity.UserProfileActivity"
             android:exported="false" />
+
+        <activity android:name=".activity.ChangeUsernameActivity" />
+        <activity android:name=".activity.ChangeEmailActivity" />
+        <activity android:name=".activity.ChangePasswordActivity" />
     </application>
 
 </manifest>

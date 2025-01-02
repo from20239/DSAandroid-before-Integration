@@ -163,6 +163,8 @@ public class AuthActivity extends AppCompatActivity {
             prefs.edit()
                     .putString("username", user.getUsername())
                     .putString("token", rawToken)  // 保存完整的Cookie字符串
+                    .putString("userEmail", user.getMail())
+                    .putString("userPassword", user.getPassword())
                     .apply();
 
 
@@ -170,6 +172,8 @@ public class AuthActivity extends AppCompatActivity {
             intent.putExtra("username", user.getUsername());
             intent.putExtra("userID", user.getId());
             intent.putExtra("token", rawToken);
+            intent.putExtra("userEmail", user.getMail());
+            intent.putExtra("userPassword", user.getPassword());
             startActivity(intent);
             finish();
         } else {
