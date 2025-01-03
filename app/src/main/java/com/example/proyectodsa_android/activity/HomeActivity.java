@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -40,6 +41,7 @@ public class HomeActivity extends AppCompatActivity {
     private String token;
     private String username;
     private String userEmail;
+    private static final int PROFILE_REQUEST_CODE = 100;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,9 +77,11 @@ public class HomeActivity extends AppCompatActivity {
             intent.putExtra("username", username);
             intent.putExtra("userID", userID);
             intent.putExtra("token", token);
-            intent.putExtra("userEmail", userEmail); // 传递用户邮箱
-            startActivity(intent);
+            intent.putExtra("userEmail", userEmail);
+            startActivityForResult(intent, PROFILE_REQUEST_CODE);  // 使用 startActivityForResult
         });
+
+
 
         // 设置按钮点击事件，传递所有必要的数据
         btnStore.setOnClickListener(v -> {
@@ -117,6 +121,18 @@ public class HomeActivity extends AppCompatActivity {
         loadUserPuntos();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PROFILE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            // 更新UI显示的用户名
+            String newUsername = data.getStringExtra("username");
+            if (newUsername != null) {
+                username = newUsername;
+                tvUsername.setText(newUsername);
+            }
+        }
+    }
     private void redirectToLogin() {
         Intent intent = new Intent(this, AuthActivity.class);
         startActivity(intent);

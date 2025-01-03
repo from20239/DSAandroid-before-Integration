@@ -14,6 +14,9 @@
         android:theme="@style/Theme.AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activity.ChangePasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.UserStuffActivity"
             android:exported="false" />
         <activity
@@ -35,7 +38,6 @@
         <activity
             android:name=".activity.AuthActivity"
             android:exported="false" />
-
         <activity
             android:name=".activity.UserProfileActivity"
             android:exported="false" />

@@ -49,6 +49,7 @@ public class User {
     }
 
     public String getUsername() {
+
         return username;
     }
 
@@ -65,6 +66,7 @@ public class User {
     }
 
     public String getMail() {
+
         return mail;
     }
 
