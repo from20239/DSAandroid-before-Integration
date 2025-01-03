@@ -94,11 +94,13 @@ public class HomeActivity extends AppCompatActivity {
         btnPlay.setOnClickListener(v -> {
             SharedPreferences prefs = getSharedPreferences("com.example.proyectodsa_android.v2.playerprefs", MODE_PRIVATE);
             prefs.edit().putString("sceneToLoad", "LevelEditorScene").apply();
-            prefs.edit().putString("userId", userID).apply();
+            prefs.edit().putString("playerId", userID).apply();
             prefs.edit().putString("playerName", username).apply();
             prefs.edit().putString("cookie", token).apply();
 
-           Intent intent = new Intent(this, UnityPlayerGameActivity.class);
+           Intent intent = new Intent(this, UnityWrapperActivity.class);
+           intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+           intent.putExtra("cookie", token);
            startActivity(intent);
         });
 

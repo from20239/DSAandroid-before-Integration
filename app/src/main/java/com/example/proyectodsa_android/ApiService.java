@@ -85,4 +85,11 @@ public interface ApiService {
             @Header("Cookie") String token,
             @Body PasswordChangeRequest request
     );
+
+    @POST("levels/uploadLevel")
+    Call<Void> uploadLevel(
+            @Header("Cookie") String token,
+            @Header("Content-Type") String contentType,
+            @Body String levelJson
+    );
 }

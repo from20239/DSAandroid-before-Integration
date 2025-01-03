@@ -41,6 +41,19 @@
         <activity
             android:name=".activity.UserProfileActivity"
             android:exported="false" />
+        <activity
+            android:name=".activity.UnityWrapperActivity"
+            android:enabled="true"
+            android:hardwareAccelerated="false"
+            android:process=":unity"
+            android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale|layoutDirection|density"
+            android:screenOrientation="landscape">
+            <meta-data android:name="unityplayer.UnityActivity" android:value="true" />
+            <meta-data android:name="android.app.lib_name" android:value="game" />
+            <meta-data android:name="WindowManagerPreference:FreeformWindowSize" android:value="@string/FreeformWindowSize_maximize" />
+            <meta-data android:name="WindowManagerPreference:FreeformWindowOrientation" android:value="@string/FreeformWindowOrientation_landscape" />
+            <meta-data android:name="notch_support" android:value="true" />
+        </activity>
     </application>
 
 </manifest>
