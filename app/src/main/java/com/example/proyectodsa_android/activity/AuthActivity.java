@@ -10,23 +10,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.proyectodsa_android.ApiService;
 import com.example.proyectodsa_android.models.LoginRequest;
 import com.example.proyectodsa_android.R;
 import com.example.proyectodsa_android.RetrofitClient;
 import com.example.proyectodsa_android.models.User;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AuthActivity extends AppCompatActivity {
     private ViewFlipper viewFlipper;
-    private EditText etUsername, etEmail, etPassword, etConfirmPassword;
-    private EditText etLoginIdentifier, etLoginPassword;
+    private EditText etUsername, etEmail, etPassword, etConfirmPassword, etLoginIdentifier, etLoginPassword;
     private Button btnRegister, btnLogin;
     private TextView tvSwitchToLogin, tvSwitchToRegister;
     private ApiService apiService;

@@ -9,25 +9,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
-import androidx.appcompat.widget.Toolbar;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.proyectodsa_android.ApiService;
 import com.example.proyectodsa_android.R;
 import com.example.proyectodsa_android.RetrofitClient;
 import com.example.proyectodsa_android.models.User;
-
-import java.util.HashMap;
-import java.util.Map;
-
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 public class UserProfileActivity extends AppCompatActivity {
     private EditText etUserId, etUsername, etEmail;
     private Button btnSave, btnChangePassword;
@@ -46,6 +39,7 @@ public class UserProfileActivity extends AppCompatActivity {
         }
         return "token=" + token;
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +61,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
         apiService = RetrofitClient.getInstance().getApi();
 
-        // 获取传递的数据
+
         userID = getIntent().getStringExtra("userID");
         token = getIntent().getStringExtra("token");
     }
@@ -95,7 +89,6 @@ public class UserProfileActivity extends AppCompatActivity {
                     etUsername.setText(user.getUsername());
                     etEmail.setText(user.getMail());
 
-                    // 保存原始值，用于对比是否修改
                     originalUsername = user.getUsername();
                     originalEmail = user.getMail();
                 } else {
@@ -120,12 +113,12 @@ public class UserProfileActivity extends AppCompatActivity {
         String newUsername = etUsername.getText().toString().trim();
         String newEmail = etEmail.getText().toString().trim();
 
-        // 验证输入
+        // Validar entrada
         if (!validateInput(newUsername, newEmail)) {
             return;
         }
 
-        // 检查是否有修改
+        // Comprobación de modificaciones
         boolean hasChanges = false;
         if (!newUsername.equals(originalUsername)) {
             updateUsername(newUsername);
@@ -146,7 +139,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
         RequestBody requestBody = RequestBody.create(
                 MediaType.parse("text/plain"),
-                newUsername  // 直接传递字符串，不需要处理引号
+                newUsername
         );
 
         apiService.updateUsername(userID, formatToken(token), requestBody)
@@ -158,11 +151,11 @@ public class UserProfileActivity extends AppCompatActivity {
                             User user = response.body();
                             originalUsername = user.getUsername();
 
-                            // 更新 SharedPreferences
+                            // Actualiza SharedPreferences
                             SharedPreferences prefs = getSharedPreferences("auth", MODE_PRIVATE);
                             prefs.edit().putString("username", originalUsername).apply();
 
-                            // 返回结果给 HomeActivity
+                            // Devolver resultado a HomeActivity
                             Intent resultIntent = new Intent();
                             resultIntent.putExtra("username", originalUsername);
                             setResult(RESULT_OK, resultIntent);
@@ -191,7 +184,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
         RequestBody requestBody = RequestBody.create(
                 MediaType.parse("text/plain"),
-                newEmail  // 直接传递字符串，不需要处理引号
+                newEmail
         );
 
         apiService.updateEmail(userID, formatToken(token), requestBody)

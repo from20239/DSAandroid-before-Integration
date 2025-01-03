@@ -7,31 +7,23 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-import androidx.appcompat.widget.Toolbar;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
 import com.example.proyectodsa_android.ApiService;
 import com.example.proyectodsa_android.R;
 import com.example.proyectodsa_android.RetrofitClient;
 import com.example.proyectodsa_android.models.PasswordChangeRequest;
 import com.example.proyectodsa_android.models.User;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 public class ChangePasswordActivity extends AppCompatActivity {
     private EditText etCurrentPassword, etNewPassword, etConfirmPassword;
     private Button btnSavePassword;
     private ImageButton btnBack;
     private ProgressBar progressBar;
     private ApiService apiService;
-    private String token;
-    private String userID;
+    private String token, userID;
 
     private String formatToken(String token) {
         if(token.startsWith("token=")) {
@@ -59,7 +51,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
         apiService = RetrofitClient.getInstance().getApi();
 
-        // 获取传递的数据
         userID = getIntent().getStringExtra("userID");
         token = getIntent().getStringExtra("token");
     }

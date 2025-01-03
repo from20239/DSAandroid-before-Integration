@@ -7,25 +7,16 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
 import com.example.proyectodsa_android.ApiService;
 import com.example.proyectodsa_android.R;
 import com.example.proyectodsa_android.RetrofitClient;
 import com.example.proyectodsa_android.models.InventoryObject;
-
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-// SplashActivity.java
 public class SplashActivity extends AppCompatActivity {
     private SharedPreferences prefs;
     private ApiService apiService;
@@ -38,11 +29,11 @@ public class SplashActivity extends AppCompatActivity {
         prefs = getSharedPreferences("auth", MODE_PRIVATE);
         apiService = RetrofitClient.getInstance().getApi();
 
-        // 启动加载动画
+        // Animación de carga de inicio
         ProgressBar progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
 
-        // 延迟1秒后验证token
+        // Verificar token después de 1 segundo de retraso
         new Handler().postDelayed(() -> {
             validateToken();
         }, 1000);
@@ -57,7 +48,7 @@ public class SplashActivity extends AppCompatActivity {
             return;
         }
 
-        // 直接使用存储的完整Cookie字符串
+
         apiService.getUserObjects(username, token).enqueue(new Callback<List<InventoryObject>>() {
             @Override
             public void onResponse(Call<List<InventoryObject>> call, Response<List<InventoryObject>> response) {

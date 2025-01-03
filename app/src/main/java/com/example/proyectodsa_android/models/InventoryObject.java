@@ -6,11 +6,11 @@ import com.google.gson.annotations.SerializedName;
 public class InventoryObject {
     @SerializedName("objectID")
     @Expose
-    private String objectID;    // 物品ID
+    private String objectID;
 
     @SerializedName("quantity")
     @Expose
-    private int quantity;       // 数量
+    private int quantity;
 
     @SerializedName("userID")
     @Expose

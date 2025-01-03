@@ -14,10 +14,10 @@ public class RetrofitClient {
     private Retrofit retrofit;
 
     private RetrofitClient() {
-        // 创建自定义的 Gson 实例
+
         Gson gson = new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()
-                .serializeNulls()  // 序列化 null 值
+                .serializeNulls()
                 .create();
 
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();

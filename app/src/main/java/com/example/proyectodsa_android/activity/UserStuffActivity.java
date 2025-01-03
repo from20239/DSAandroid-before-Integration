@@ -1,15 +1,10 @@
 package com.example.proyectodsa_android.activity;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ViewFlipper;
-
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,11 +14,7 @@ import com.example.proyectodsa_android.models.InventoryObject;
 import com.example.proyectodsa_android.ItemAdapter;
 import com.example.proyectodsa_android.R;
 import com.example.proyectodsa_android.RetrofitClient;
-import com.example.proyectodsa_android.StoreAdapter;
-import com.example.proyectodsa_android.models.StoreObject;
-
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,9 +24,7 @@ public class UserStuffActivity extends AppCompatActivity {
     private RecyclerView rvInventory;
     private ItemAdapter inventoryAdapter;
     private ApiService apiService;
-    private String token;
-    private String userID;    // 添加 userID 字段
-    private String username;
+    private String token, userID, username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +58,7 @@ public class UserStuffActivity extends AppCompatActivity {
     }
 
     private void loadData() {
-        // 使用 userID 获取用户物品
+        // Obtener elementos de usuario con userID
         apiService.getUserObjects(userID, token).enqueue(new Callback<List<InventoryObject>>() {
             @Override
             public void onResponse(Call<List<InventoryObject>> call, Response<List<InventoryObject>> response) {
@@ -91,7 +80,7 @@ public class UserStuffActivity extends AppCompatActivity {
             }
         });
 
-        // 获取用户金钱（保持不变）
+        // Acceso al dinero de los usuarios (sin cambios)
         apiService.getUserMoney(userID, token).enqueue(new Callback<Double>() {
             @Override
             public void onResponse(Call<Double> call, Response<Double> response) {

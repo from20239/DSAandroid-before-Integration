@@ -69,20 +69,19 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
             tvName.setText(item.getName());
             tvPrice.setText(String.format("%.2f €", item.getPrice()));
 
-            // 拼接完整的 URL
-            String baseUrl = "http://localhost:8080/"; // 替换为你的服务器地址
+            String baseUrl = "http://localhost:8080/";
             String imageUrl = item.getImageUrl();
             if (imageUrl != null && !imageUrl.isEmpty()) {
                 if (!imageUrl.startsWith("http")) {
                     imageUrl = baseUrl + imageUrl;
                 }
             } else {
-                imageUrl = ""; // 防止 null，提供默认值
+                imageUrl = "";
             }
 
-            Log.d("StoreAdapter", "Final Image URL: " + imageUrl); // 添加日志以输出拼接后的 URL
+            Log.d("StoreAdapter", "Final Image URL: " + imageUrl);
 
-            // 使用 GlideApp 加载图片
+
             GlideApp.with(itemView.getContext())
                     .load(imageUrl)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
