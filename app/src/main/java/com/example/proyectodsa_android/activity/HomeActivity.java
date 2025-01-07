@@ -20,7 +20,7 @@ import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity {
     private ApiService apiService;
-    private ImageButton btnUserStuff, btnStore,btnPlay;
+    private ImageButton btnUserStuff, btnStore,btnPlay, btnEditor;
     private TextView tvPuntos, tvUsername;
     private Button btnLogout;
     private String userID, userEmail,token,username;
@@ -37,6 +37,7 @@ public class HomeActivity extends AppCompatActivity {
         btnStore = findViewById(R.id.btnstore);
         btnLogout = findViewById(R.id.btnLogout);
         btnPlay = findViewById(R.id.btnPlay);
+        btnEditor = findViewById(R.id.btnEditor);
 
         String username = getIntent().getStringExtra("username");
         userID = getIntent().getStringExtra("userID");
@@ -93,15 +94,26 @@ public class HomeActivity extends AppCompatActivity {
 
         btnPlay.setOnClickListener(v -> {
             SharedPreferences prefs = getSharedPreferences("com.example.proyectodsa_android.v2.playerprefs", MODE_PRIVATE);
-            prefs.edit().putString("sceneToLoad", "LevelEditorScene").apply();
-            prefs.edit().putString("playerId", userID).apply();
+            prefs.edit().putString("sceneToLoad", "Main").apply();
+            prefs.edit().putString("userId", userID).apply();
             prefs.edit().putString("playerName", username).apply();
-            prefs.edit().putString("cookie", token).apply();
 
-           Intent intent = new Intent(this, UnityWrapperActivity.class);
-           intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-           intent.putExtra("cookie", token);
-           startActivity(intent);
+            Intent intent = new Intent(this, UnityWrapperActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("cookie", token);
+            startActivity(intent);
+        });
+
+        btnEditor.setOnClickListener(v -> {
+            SharedPreferences prefs = getSharedPreferences("com.example.proyectodsa_android.v2.playerprefs", MODE_PRIVATE);
+            prefs.edit().putString("sceneToLoad", "LevelEditorScene").apply();
+            prefs.edit().putString("userId", userID).apply();
+            prefs.edit().putString("playerName", username).apply();
+
+            Intent intent = new Intent(this, UnityWrapperActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("cookie", token);
+            startActivity(intent);
         });
 
         loadUserPuntos();
