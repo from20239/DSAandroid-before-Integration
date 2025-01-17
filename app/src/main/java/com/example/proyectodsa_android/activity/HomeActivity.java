@@ -13,7 +13,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.proyectodsa_android.ApiService;
 import com.example.proyectodsa_android.R;
 import com.example.proyectodsa_android.RetrofitClient;
+import com.example.proyectodsa_android.models.InventoryObject;
+import com.google.gson.GsonBuilder;
 import com.unity3d.player.UnityPlayerGameActivity;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -23,8 +29,9 @@ public class HomeActivity extends AppCompatActivity {
     private ImageButton btnUserStuff, btnStore,btnPlay, btnEditor;
     private TextView tvPuntos, tvUsername;
     private Button btnLogout;
-    private String userID, userEmail,token,username;
+    private String userID, userEmail, token,username;
     private static final int PROFILE_REQUEST_CODE = 100;
+    private List<InventoryObject> inventoryItems = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +48,7 @@ public class HomeActivity extends AppCompatActivity {
 
         String username = getIntent().getStringExtra("username");
         userID = getIntent().getStringExtra("userID");
-        String token = getIntent().getStringExtra("token");
+        token = getIntent().getStringExtra("token");
         userEmail = getIntent().getStringExtra("userEmail");
         tvUsername.setText(username);
 
@@ -113,10 +120,33 @@ public class HomeActivity extends AppCompatActivity {
             Intent intent = new Intent(this, UnityWrapperActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("cookie", token);
+            intent.putExtra("userItems", new GsonBuilder().create().toJson(inventoryItems));
             startActivity(intent);
         });
 
         loadUserPuntos();
+        getUserObjects();
+    }
+
+    public void getUserObjects(){
+        apiService.getUserObjects(userID, token).enqueue(new Callback<List<InventoryObject>>() {
+            @Override
+            public void onResponse(Call<List<InventoryObject>> call, Response<List<InventoryObject>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    HomeActivity.this.inventoryItems = response.body();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<InventoryObject>> call, Throwable t) {
+            }
+        });
+    }
+
+    @Override
+    protected void onRestart(){
+        super.onRestart();
+        getUserObjects();
     }
 
     @Override
