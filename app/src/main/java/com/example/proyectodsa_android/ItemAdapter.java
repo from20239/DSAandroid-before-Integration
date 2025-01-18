@@ -57,7 +57,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.InventoryViewH
             tvQuantity.setText(String.valueOf(item.getQuantity()));
 
 
-            String baseUrl = "http://localhost:8080/";
+            String baseUrl = "http://10.0.2.2:8080/";
             String imageUrl = item.getUrl();
             if (imageUrl != null && !imageUrl.isEmpty()) {
                 if (!imageUrl.startsWith("http")) {

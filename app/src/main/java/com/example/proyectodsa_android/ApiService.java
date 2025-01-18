@@ -1,6 +1,7 @@
 package com.example.proyectodsa_android;
 
 import com.example.proyectodsa_android.models.InventoryObject;
+import com.example.proyectodsa_android.models.Level;
 import com.example.proyectodsa_android.models.LoginRequest;
 import com.example.proyectodsa_android.models.PasswordChangeRequest;
 import com.example.proyectodsa_android.models.StoreObject;
@@ -91,5 +92,10 @@ public interface ApiService {
             @Header("Cookie") String token,
             @Header("Content-Type") String contentType,
             @Body String levelJson
+    );
+
+    @GET("levels/user/{userId}")
+    Call<List<Level>> getLevelsByUserId(
+            @Path("userId") String userId
     );
 }

@@ -54,6 +54,10 @@
             <meta-data android:name="WindowManagerPreference:FreeformWindowOrientation" android:value="@string/FreeformWindowOrientation_landscape" />
             <meta-data android:name="notch_support" android:value="true" />
         </activity>
+
+        <activity
+            android:name=".activity.LevelListActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

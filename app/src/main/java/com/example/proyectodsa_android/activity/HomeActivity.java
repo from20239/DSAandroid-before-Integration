@@ -26,7 +26,7 @@ import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity {
     private ApiService apiService;
-    private ImageButton btnUserStuff, btnStore,btnPlay, btnEditor;
+    private ImageButton btnUserStuff, btnStore,btnPlay, btnEditor, btnLevelList;
     private TextView tvPuntos, tvUsername;
     private Button btnLogout;
     private String userID, userEmail, token,username;
@@ -45,6 +45,8 @@ public class HomeActivity extends AppCompatActivity {
         btnLogout = findViewById(R.id.btnLogout);
         btnPlay = findViewById(R.id.btnPlay);
         btnEditor = findViewById(R.id.btnEditor);
+
+        btnLevelList = findViewById(R.id.btnLevelList);
 
         String username = getIntent().getStringExtra("username");
         userID = getIntent().getStringExtra("userID");
@@ -121,6 +123,18 @@ public class HomeActivity extends AppCompatActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("cookie", token);
             intent.putExtra("userItems", new GsonBuilder().create().toJson(inventoryItems));
+            startActivity(intent);
+        });
+
+        // list btn
+        btnLevelList.setOnClickListener(v -> {
+            Log.d("HomeActivity", "LevelList button clicked. Preparing to navigate...");
+            Intent intent = new Intent(this, LevelListActivity.class);
+            intent.putExtra("username", username);
+            intent.putExtra("userID", userID);
+            intent.putExtra("token", token);
+            Log.d("HomeActivity", "Navigating to LevelListActivity with data - username: "
+                    + username + ", userID: " + userID + ", token: " + token);
             startActivity(intent);
         });
 
