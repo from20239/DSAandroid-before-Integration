@@ -1,4 +1,4 @@
-package com.example.proyectodsa_android.adapters;
+package com.example.proyectodsa_android;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.proyectodsa_android.R;
 import com.example.proyectodsa_android.models.Level;
+
 import java.util.List;
 
 public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.LevelViewHolder> {
@@ -31,9 +32,14 @@ public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.LevelViewHol
     @Override
     public void onBindViewHolder(@NonNull LevelViewHolder holder, int position) {
         Level level = levelList.get(position);
-        holder.levelName.setText(level.getLevelName());
-        holder.userId.setText("User ID: " + level.getUserId());
-        holder.levelId.setText("Level ID: " + level.getId());
+
+        // Debug log
+        android.util.Log.d("LevelAdapter", "Binding level: " + level.toString());
+
+        // Set data to views
+        holder.levelName.setText(level.getLevelName() != null ? level.getLevelName() : "No Name");
+        holder.userId.setText("User ID: " + (level.getUserId() != null ? level.getUserId() : "Unknown"));
+        holder.levelId.setText("Level ID: " + (level.getId() != null ? level.getId() : "Unknown"));
     }
 
     @Override
@@ -52,4 +58,3 @@ public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.LevelViewHol
         }
     }
 }
-

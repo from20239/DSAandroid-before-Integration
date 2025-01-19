@@ -5,6 +5,7 @@ public class Level {
     private String userId;
     private String levelName;
 
+    // Getters
     public String getId() {
         return id;
     }
@@ -15,5 +16,15 @@ public class Level {
 
     public String getLevelName() {
         return levelName;
+    }
+
+    // toString for debugging
+    @Override
+    public String toString() {
+        return "Level{" +
+                "id='" + id + '\'' +
+                ", userId='" + userId + '\'' +
+                ", levelName='" + levelName + '\'' +
+                '}';
     }
 }
